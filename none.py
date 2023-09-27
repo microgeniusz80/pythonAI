@@ -166,7 +166,7 @@ model_reg.compile(
 
 model_5 = tf.keras.Sequential(
     [
-        tf.keras.layers.Dense(100, activation='relu', input_dim=2),
+        tf.keras.layers.Dense(100, activation='relu'),
         tf.keras.layers.Dense(10, activation='relu'),
         tf.keras.layers.Dense(10, activation='relu'),
         tf.keras.layers.Dense(1, activation='sigmoid')
@@ -175,13 +175,17 @@ model_5 = tf.keras.Sequential(
 
 model_5.compile(
     loss='binary_crossentropy',
-    optimizer=tf.keras.optimizers.Adam(lr=0.001),
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.01),
     metrics=['accuracy']
 )
 
 # print('without shaping: ',y)
 # print('X shape: ', X, y.reshape((-1,1)))
 
+# print('tanpa expand: ', X)
+# print('bentuk: ', X.shape)
+# print('lepas expand: ', tf.expand_dims(X, axis=-1))
+# print('bentuk lepas: ', tf.expand_dims(X, axis=-1).shape)
 
 # history = model_5.fit(tf.expand_dims(X, axis=-1), y.reshape((-1,1)), epochs=100)
 history = model_5.fit(X, y, epochs=100)
