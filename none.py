@@ -166,7 +166,10 @@ model_reg.compile(
 
 model_5 = tf.keras.Sequential(
     [
-        tf.keras.layers.Dense(1, activation=tf.keras.activations.linear)
+        tf.keras.layers.Dense(100, activation='relu', input_dim=2),
+        tf.keras.layers.Dense(10, activation='relu'),
+        tf.keras.layers.Dense(10, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
     ]
 )
 
@@ -176,6 +179,16 @@ model_5.compile(
     metrics=['accuracy']
 )
 
-history = model_5.fit(tf.expand_dims(X, axis=-1), y, epochs=100)
+# print('without shaping: ',y)
+# print('X shape: ', X, y.reshape((-1,1)))
+
+
+# history = model_5.fit(tf.expand_dims(X, axis=-1), y.reshape((-1,1)), epochs=100)
+history = model_5.fit(X, y, epochs=100)
+
+# print('after shaping: ', y.reshape((-1,1)))
+
+print(model_5.summary())
 
 plot_decision_boundary(model_5, X, y)
+
